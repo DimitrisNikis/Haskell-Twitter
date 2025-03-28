@@ -1,0 +1,96 @@
+/home/dimitriinikitin/.ghcup/ghc/9.8.2/lib/ghc-9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSarray-0.5.6.0-b08f-ghc9.8.2.so:
+  hash: c270c0a4756985c97e7ca8cf4f2f4cc464cc54147db1cc268d4f9ba170dcdc80
+/home/dimitriinikitin/.ghcup/ghc/9.8.2/lib/ghc-9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSbase-4.19.1.0-c38a-ghc9.8.2.so:
+  hash: 089669abef867ecdcc08aaff26ed76bb67e205fe7bf0d71c22ed76c7a4e7cdbf
+/home/dimitriinikitin/.ghcup/ghc/9.8.2/lib/ghc-9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSbinary-0.8.9.1-6eb5-ghc9.8.2.so:
+  hash: 072635fa850c6fc0b56c8bb2a6b8b83ac546e37540a1a2bcd9bbbc266bbd65e2
+/home/dimitriinikitin/.ghcup/ghc/9.8.2/lib/ghc-9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSbytestring-0.12.1.0-2ee7-ghc9.8.2.so:
+  hash: 40909295e84654817d40a645f83baaa0735ac6bdabc94ead48e8893b55404b22
+/home/dimitriinikitin/.ghcup/ghc/9.8.2/lib/ghc-9.8.2/lib/x86_64-linux-ghc-9.8.2/libHScontainers-0.6.8-d9b8-ghc9.8.2.so:
+  hash: 553a4d5ae8584139e67af1875120d12fcbaf632094a64dae10bfbf0e3e87a71b
+/home/dimitriinikitin/.ghcup/ghc/9.8.2/lib/ghc-9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSdeepseq-1.5.0.0-adea-ghc9.8.2.so:
+  hash: 9b4d8d8c03e18e8603f196b5af4d59475121140b3c527de1d88489f63762b262
+/home/dimitriinikitin/.ghcup/ghc/9.8.2/lib/ghc-9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSdirectory-1.3.8.1-0931-ghc9.8.2.so:
+  hash: 0cc927f7fc6622af4f574e3e913fba26ae65c42140d59823e30c5e749f38da9a
+/home/dimitriinikitin/.ghcup/ghc/9.8.2/lib/ghc-9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSexceptions-0.10.7-93ec-ghc9.8.2.so:
+  hash: 80d6ee13502bb40b88c6528af98f79d7a3001581dca04922d9dcac4f89ebf9fe
+/home/dimitriinikitin/.ghcup/ghc/9.8.2/lib/ghc-9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSfilepath-1.4.200.1-6350-ghc9.8.2.so:
+  hash: 521ef82b8fbc008e8dc7dbe3eec2528a0a5900449c6000e7e44f8b6f5c20aae3
+/home/dimitriinikitin/.ghcup/ghc/9.8.2/lib/ghc-9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSghc-bignum-1.3-5d39-ghc9.8.2.so:
+  hash: 8e0204fa76b7d8783916a9139d77bc8e994d9826cabe5663e416ebb2efa7da25
+/home/dimitriinikitin/.ghcup/ghc/9.8.2/lib/ghc-9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSghc-boot-th-9.8.2-cec8-ghc9.8.2.so:
+  hash: 541d2e45061119e11284a9666d1df08dec285e523fd1dd261807cf5f3c3f490c
+/home/dimitriinikitin/.ghcup/ghc/9.8.2/lib/ghc-9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSghc-prim-0.11.0-9ff8-ghc9.8.2.so:
+  hash: 10565139a7455b3eaa87291f68c7f846245c5f07997e2a44b1a273276e9f717e
+/home/dimitriinikitin/.ghcup/ghc/9.8.2/lib/ghc-9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSmtl-2.3.1-0d33-ghc9.8.2.so:
+  hash: 0cb21d231349d399ca19e185c0398aad7308ee7a27840ff4ab5f18984b2a415f
+/home/dimitriinikitin/.ghcup/ghc/9.8.2/lib/ghc-9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSpretty-1.1.3.6-c96a-ghc9.8.2.so:
+  hash: a23d5eb14e5d240934ab9f5a791346e24594810fe736d2948c2f699f2f419c84
+/home/dimitriinikitin/.ghcup/ghc/9.8.2/lib/ghc-9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSstm-2.5.2.1-73cd-ghc9.8.2.so:
+  hash: 98bd9306a9ac8b18efc899d02fb5a1f9898442ba6728e23364ce9e342839569e
+/home/dimitriinikitin/.ghcup/ghc/9.8.2/lib/ghc-9.8.2/lib/x86_64-linux-ghc-9.8.2/libHStemplate-haskell-2.21.0.0-f842-ghc9.8.2.so:
+  hash: cf6597e0b7764ce4aa3f5a3309376c9aaf049f9834f47fc76f9f9e561ed38ca9
+/home/dimitriinikitin/.ghcup/ghc/9.8.2/lib/ghc-9.8.2/lib/x86_64-linux-ghc-9.8.2/libHStext-2.1.1-cc4c-ghc9.8.2.so:
+  hash: dd6a37e3c3315652493c76c2fec0cd258118e53e8df5d0cafccd1fb03977cbb8
+/home/dimitriinikitin/.ghcup/ghc/9.8.2/lib/ghc-9.8.2/lib/x86_64-linux-ghc-9.8.2/libHStime-1.12.2-d509-ghc9.8.2.so:
+  hash: d4ff6ff51eb7fd9d18fc4d7298856e3f1f6c7032a136ef44251ce88fc9c59c81
+/home/dimitriinikitin/.ghcup/ghc/9.8.2/lib/ghc-9.8.2/lib/x86_64-linux-ghc-9.8.2/libHStransformers-0.6.1.0-bca4-ghc9.8.2.so:
+  hash: 4fedad03970c79c45dd4edab421871ceeaeeeded058f865df2afdb62c1d81bca
+/home/dimitriinikitin/.ghcup/ghc/9.8.2/lib/ghc-9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSunix-2.8.4.0-6fcf-ghc9.8.2.so:
+  hash: 3a19c3695550c522317da7138ec3455c2303e4165b2c004c9f2b2345b805cf8e
+/home/dimitriinikitin/.ghcup/ghc/9.8.2/lib/ghc-9.8.2/lib/x86_64-linux-ghc-9.8.2/rts-1.0.2/include/ghcversion.h:
+  hash: c5092117b43444aa549ce09a514f36de03d946ec55bbd106d8611b49702ccbbe
+? /home/dimitriinikitin/.stack/snapshots/x86_64-linux/626845fb7ffa3a842957b173b2028eec3ad7d8dc289a2e34f40732f975aed1e8/9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSStateVar-1.2.2-F8RIq8rsAA3LNsQV8Mvgos-ghc9.8.2.so
+: hash: 9872f39ac30a905708a327930a3ce35b41d2560503d7edaa6a2d5dc12d777567
+? /home/dimitriinikitin/.stack/snapshots/x86_64-linux/626845fb7ffa3a842957b173b2028eec3ad7d8dc289a2e34f40732f975aed1e8/9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSacid-state-0.16.1.3-IAQFtIexDTmCAzOAi1Y45y-ghc9.8.2.so
+: hash: 3fc7d777a2015272c36cc26a03ee6797a17b7bac8d7a972ec92257823eecfb4d
+? /home/dimitriinikitin/.stack/snapshots/x86_64-linux/626845fb7ffa3a842957b173b2028eec3ad7d8dc289a2e34f40732f975aed1e8/9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSap-normalize-0.1.0.1-IBL9kcAnuu9KnnXlMRefCs-ghc9.8.2.so
+: hash: 313649205c8598ec93500d8e4ec3be5eef7a4dbfb2aba7e0829ebd11f4faf5ef
+? /home/dimitriinikitin/.stack/snapshots/x86_64-linux/626845fb7ffa3a842957b173b2028eec3ad7d8dc289a2e34f40732f975aed1e8/9.8.2/lib/x86_64-linux-ghc-9.8.2/libHScereal-0.5.8.3-4fSHnO0rQMDIcX8tlX7s8p-ghc9.8.2.so
+: hash: 477b0509d589f7dad651b4fc062f0657c1b4b514cc512823888310407a833772
+? /home/dimitriinikitin/.stack/snapshots/x86_64-linux/626845fb7ffa3a842957b173b2028eec3ad7d8dc289a2e34f40732f975aed1e8/9.8.2/lib/x86_64-linux-ghc-9.8.2/libHScontravariant-1.5.5-7U3B8DjTD419AaQlwOHEXf-ghc9.8.2.so
+: hash: 6d19a00d076de3b7bfde100484536371730f40a51a2296852595d91e875da8d1
+? /home/dimitriinikitin/.stack/snapshots/x86_64-linux/626845fb7ffa3a842957b173b2028eec3ad7d8dc289a2e34f40732f975aed1e8/9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSfilelock-0.1.1.7-GlH0qv4AZa9AiPO8Wh5cF2-ghc9.8.2.so
+: hash: 250365bf696364c965d7facb91ef1deea5d303dd6186cfb64c2c578c5bfd9c4f
+? /home/dimitriinikitin/.stack/snapshots/x86_64-linux/626845fb7ffa3a842957b173b2028eec3ad7d8dc289a2e34f40732f975aed1e8/9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSgeneric-data-1.1.0.0-CSVjCmv1euXJdt96ZpaiRA-ghc9.8.2.so
+: hash: f2db20b0dd8d758d33b2d5fe290fbf47663c31304e88da3c3ffe31305fd028cd
+? /home/dimitriinikitin/.stack/snapshots/x86_64-linux/626845fb7ffa3a842957b173b2028eec3ad7d8dc289a2e34f40732f975aed1e8/9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSnetwork-bsd-2.8.1.0-2fy5p5bc3fa1KGQO0YvLib-ghc9.8.2.so
+: hash: 679f4e0d25c2b11d7583f2123c5a1c770a5475e06dc13afd5fcd91cc4e45869c
+? /home/dimitriinikitin/.stack/snapshots/x86_64-linux/626845fb7ffa3a842957b173b2028eec3ad7d8dc289a2e34f40732f975aed1e8/9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSold-locale-1.0.0.7-HajOLluQdKj4QU8hxrEG8M-ghc9.8.2.so
+: hash: 09918fdd5b97132b7d452d194afe0883de415f11d086d6e72f748b89025f65dd
+? /home/dimitriinikitin/.stack/snapshots/x86_64-linux/626845fb7ffa3a842957b173b2028eec3ad7d8dc289a2e34f40732f975aed1e8/9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSold-time-1.1.0.4-Gjbk9ZrByOzD7EAsGETISk-ghc9.8.2.so
+: hash: 7bfdd72c54c85fef9ccc6e9086a67d1f3a2614067ea3e4ea13918fd53d978bcc
+? /home/dimitriinikitin/.stack/snapshots/x86_64-linux/626845fb7ffa3a842957b173b2028eec3ad7d8dc289a2e34f40732f975aed1e8/9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSsafecopy-0.10.4.2-5Ko7wOgiHlhFPFSDnGbeEr-ghc9.8.2.so
+: hash: 051da5c0013b629eab6332797a8c474d81e990244c41651591b174b3370ec62f
+? /home/dimitriinikitin/.stack/snapshots/x86_64-linux/626845fb7ffa3a842957b173b2028eec3ad7d8dc289a2e34f40732f975aed1e8/9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSshow-combinators-0.2.0.0-6lim7i9B7nA78QKWHZYZNS-ghc9.8.2.so
+: hash: ec883252f72f5e5f5edf5750898d95e13a975974046683b8098edfd1d8f67a17
+? /home/dimitriinikitin/.stack/snapshots/x86_64-linux/626845fb7ffa3a842957b173b2028eec3ad7d8dc289a2e34f40732f975aed1e8/9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSsyb-0.7.2.4-Fn0YDXIlxwNGXvs1Biqgpt-ghc9.8.2.so
+: hash: d56e3f4e7675f6a86f14297d14dc03e08b87b5c22218ba68ab1700ce892bfa8d
+? /home/dimitriinikitin/.stack/snapshots/x86_64-linux/626845fb7ffa3a842957b173b2028eec3ad7d8dc289a2e34f40732f975aed1e8/9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSth-abstraction-0.7.0.0-4WNyFhvnlAUEya30h64VAE-ghc9.8.2.so
+: hash: 20c24d5d144cfb5571260b4448c30332014730522cfad4ab16db6f74b7f167cc
+? /home/dimitriinikitin/.stack/snapshots/x86_64-linux/626845fb7ffa3a842957b173b2028eec3ad7d8dc289a2e34f40732f975aed1e8/9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSth-expand-syns-0.4.11.0-5G4OVyUJe145K6zvgmyMO8-ghc9.8.2.so
+: hash: abec2ec9adb35f571721b62801ea8885b7c537512c1c951ec175dc4f138212d5
+? /home/dimitriinikitin/.stack/snapshots/x86_64-linux/626845fb7ffa3a842957b173b2028eec3ad7d8dc289a2e34f40732f975aed1e8/9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSvector-0.13.1.0-KT6eoM35YTOKvTxrIt2oXI-ghc9.8.2.so
+: hash: d424d4a88ca60fe234de29f03eb887d5277dd2a9c207775fb8bd281a85eff1d4
+? /home/dimitriinikitin/.stack/snapshots/x86_64-linux/626845fb7ffa3a842957b173b2028eec3ad7d8dc289a2e34f40732f975aed1e8/9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSvector-stream-0.1.0.1-Dh1Z0SGUWtRLPzPBjWj72M-ghc9.8.2.so
+: hash: 37206153e53e71e99e42cb439ed236534836594d2a56c19c36a7a44a3366d14f
+? /home/dimitriinikitin/.stack/snapshots/x86_64-linux/de49e82dafb00eebe7c08718b2b4ace09c09d86ee34e8dca9bb88ac475701b32/9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSbase-orphans-0.9.2-JFEEkbapmEI26Npr3gPTBS-ghc9.8.2.so
+: hash: 5cb5208ef886b23100014327e97afe9281c75ad87a5db4281d8764590cdfbd5f
+? /home/dimitriinikitin/.stack/snapshots/x86_64-linux/de49e82dafb00eebe7c08718b2b4ace09c09d86ee34e8dca9bb88ac475701b32/9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSnetwork-3.2.4.0-ueCfIom9XP1Ia7sjwyTa-ghc9.8.2.so
+: hash: 9f9b6adaab1389d48d1d6e1fbf5e6c1ae076988f77d9a73ea99d80cea96edd65
+? /home/dimitriinikitin/.stack/snapshots/x86_64-linux/de49e82dafb00eebe7c08718b2b4ace09c09d86ee34e8dca9bb88ac475701b32/9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSprimitive-0.9.0.0-DTIBWATWlalJUvLh9bpwSI-ghc9.8.2.so
+: hash: ac25f47b41e77e22233fc15b949db01242760c40de2de918a61360d712dc87d8
+? /home/dimitriinikitin/Desktop/Haskell/Haskell-Server-Twitter/.stack-work/dist/x86_64-linux/ghc-9.8.2/build/Haskell-Server-Twitter-exe/autogen/Paths_Haskell_Server_Twitter.hs
+: hash: 31a6a00e3f4b03bf574dd436943ba0c74b71faa0a4e481581916df55fad660e7
+? /home/dimitriinikitin/Desktop/Haskell/Haskell-Server-Twitter/.stack-work/dist/x86_64-linux/ghc-9.8.2/build/Haskell-Server-Twitter-exe/autogen/cabal_macros.h
+: hash: 7c8be7fa775899a9068f35183fe7dd6bdc87109aca5b877f0e007cd67d9e8d83
+/home/dimitriinikitin/Desktop/Haskell/Haskell-Server-Twitter/Haskell-Server-Twitter.cabal:
+  hash: 14109f3eefbf8b754f71e1e0471f4f73911417a3d176ce6e8788ce67e11221d3
+/home/dimitriinikitin/Desktop/Haskell/Haskell-Server-Twitter/README.md:
+  hash: 2f3c42d7cc3dd8cc747e7246efa998bcc027a01591349acd7300abd66c812512
+/home/dimitriinikitin/Desktop/Haskell/Haskell-Server-Twitter/app/Main.hs:
+  hash: 932302a0c9696bcb2e9444971f283186cf1036046610a40b6a5181de7340ab9f
+/home/dimitriinikitin/Desktop/Haskell/Haskell-Server-Twitter/package.yaml:
+  hash: e3c7e7741e33869acf4116190d9ffd9b7dfe90dcdacc34ca464811e896bbdc63
+/usr/include/stdc-predef.h:
+  hash: cb08cd5d4cc059a90833ac48a284d25016e8d56ded8ad4cd98d8ac59cc5053f3
