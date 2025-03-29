@@ -18,6 +18,7 @@ executables:
       - -with-rtsopts=-N
     dependencies:
       - base >= 4.7 && < 5
+      - Haskell-Server-Twitter
       - servant
       - servant-server
       - servant-client
@@ -41,6 +42,36 @@ executables:
       - servant-auth-server
       - base64-bytestring
       - cryptohash-sha256
+
+library:
+  source-dirs: src
+  exposed-modules:
+    - Lib
+  dependencies:
+    - base >= 4.7 && < 5
+    - servant
+    - servant-server
+    - servant-client
+    - servant-client-core
+    - warp
+    - text
+    - bytestring
+    - containers
+    - aeson
+    - mtl
+    - time
+    - acid-state
+    - regex-tdfa
+    - safecopy
+    - wai
+    - http-types
+    - jwt >= 0.10.0
+    - bcrypt
+    - random
+    - string-conversions
+    - servant-auth-server
+    - base64-bytestring
+    - cryptohash-sha256
 
 default-extensions:
   - OverloadedStrings

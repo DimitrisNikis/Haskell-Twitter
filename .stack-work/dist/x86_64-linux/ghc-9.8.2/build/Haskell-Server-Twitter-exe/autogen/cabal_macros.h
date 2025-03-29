@@ -10,6 +10,16 @@
   (major1) == 0 && (major2) <  1 || \
   (major1) == 0 && (major2) == 1 && (minor) <= 0)
 #endif /* MIN_VERSION_Haskell_Server_Twitter */
+/* package Haskell-Server-Twitter-0.1.0.0 */
+#ifndef VERSION_Haskell_Server_Twitter
+#define VERSION_Haskell_Server_Twitter "0.1.0.0"
+#endif /* VERSION_Haskell_Server_Twitter */
+#ifndef MIN_VERSION_Haskell_Server_Twitter
+#define MIN_VERSION_Haskell_Server_Twitter(major1,major2,minor) (\
+  (major1) <  0 || \
+  (major1) == 0 && (major2) <  1 || \
+  (major1) == 0 && (major2) == 1 && (minor) <= 0)
+#endif /* MIN_VERSION_Haskell_Server_Twitter */
 /* package acid-state-0.16.1.3 */
 #ifndef VERSION_acid_state
 #define VERSION_acid_state "0.16.1.3"
@@ -353,7 +363,7 @@
 #endif /* MIN_TOOL_VERSION_strip */
 
 #ifndef CURRENT_COMPONENT_ID
-#define CURRENT_COMPONENT_ID "Haskell-Server-Twitter-0.1.0.0-97tYlPLfXqoC6uq9irKsTp-Haskell-Server-Twitter-exe"
+#define CURRENT_COMPONENT_ID "Haskell-Server-Twitter-0.1.0.0-Lg7D2mOdhlY1WblFyEnett-Haskell-Server-Twitter-exe"
 #endif /* CURRENT_COMPONENT_ID */
 #ifndef CURRENT_PACKAGE_VERSION
 #define CURRENT_PACKAGE_VERSION "0.1.0.0"
