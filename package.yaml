@@ -43,6 +43,52 @@ executables:
       - base64-bytestring
       - cryptohash-sha256
 
+tests:
+  Haskell-Server-Twitter-test:
+    main: Spec.hs
+    source-dirs: test
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - Haskell-Server-Twitter
+      - hspec
+      - http-client
+      - http-client-tls
+      - http-types
+      - bytestring
+      - text
+      - aeson
+      - time
+      - wai
+      - wai-extra
+      - base >= 4.7 && < 5
+      - servant
+      - servant-server
+      - servant-client
+      - servant-client-core
+      - warp
+      - text
+      - bytestring
+      - containers
+      - aeson
+      - mtl
+      - time
+      - acid-state
+      - regex-tdfa
+      - safecopy
+      - wai
+      - http-types
+      - jwt >= 0.10.0
+      - bcrypt
+      - random
+      - string-conversions
+      - servant-auth-server
+      - base64-bytestring
+      - cryptohash-sha256
+      - network
+
 library:
   source-dirs: src
   exposed-modules:
