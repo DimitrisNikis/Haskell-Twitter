@@ -42,9 +42,11 @@ executable Haskell-Server-Twitter-exe
       acid-state
     , aeson
     , base >=4.7 && <5
+    , base64-bytestring
     , bcrypt
     , bytestring
     , containers
+    , cryptohash-sha256
     , http-types
     , jwt >=0.10.0
     , mtl
@@ -52,6 +54,7 @@ executable Haskell-Server-Twitter-exe
     , regex-tdfa
     , safecopy
     , servant
+    , servant-auth-server
     , servant-client
     , servant-client-core
     , servant-server

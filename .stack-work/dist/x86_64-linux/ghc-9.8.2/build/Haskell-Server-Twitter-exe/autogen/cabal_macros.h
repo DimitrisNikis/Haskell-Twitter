@@ -40,6 +40,16 @@
   (major1) == 4 && (major2) <  19 || \
   (major1) == 4 && (major2) == 19 && (minor) <= 1)
 #endif /* MIN_VERSION_base */
+/* package base64-bytestring-1.2.1.0 */
+#ifndef VERSION_base64_bytestring
+#define VERSION_base64_bytestring "1.2.1.0"
+#endif /* VERSION_base64_bytestring */
+#ifndef MIN_VERSION_base64_bytestring
+#define MIN_VERSION_base64_bytestring(major1,major2,minor) (\
+  (major1) <  1 || \
+  (major1) == 1 && (major2) <  2 || \
+  (major1) == 1 && (major2) == 2 && (minor) <= 1)
+#endif /* MIN_VERSION_base64_bytestring */
 /* package bcrypt-0.0.11 */
 #ifndef VERSION_bcrypt
 #define VERSION_bcrypt "0.0.11"
@@ -70,6 +80,16 @@
   (major1) == 0 && (major2) <  6 || \
   (major1) == 0 && (major2) == 6 && (minor) <= 8)
 #endif /* MIN_VERSION_containers */
+/* package cryptohash-sha256-0.11.102.1 */
+#ifndef VERSION_cryptohash_sha256
+#define VERSION_cryptohash_sha256 "0.11.102.1"
+#endif /* VERSION_cryptohash_sha256 */
+#ifndef MIN_VERSION_cryptohash_sha256
+#define MIN_VERSION_cryptohash_sha256(major1,major2,minor) (\
+  (major1) <  0 || \
+  (major1) == 0 && (major2) <  11 || \
+  (major1) == 0 && (major2) == 11 && (minor) <= 102)
+#endif /* MIN_VERSION_cryptohash_sha256 */
 /* package http-types-0.12.4 */
 #ifndef VERSION_http_types
 #define VERSION_http_types "0.12.4"
@@ -140,6 +160,16 @@
   (major1) == 0 && (major2) <  20 || \
   (major1) == 0 && (major2) == 20 && (minor) <= 2)
 #endif /* MIN_VERSION_servant */
+/* package servant-auth-server-0.4.9.0 */
+#ifndef VERSION_servant_auth_server
+#define VERSION_servant_auth_server "0.4.9.0"
+#endif /* VERSION_servant_auth_server */
+#ifndef MIN_VERSION_servant_auth_server
+#define MIN_VERSION_servant_auth_server(major1,major2,minor) (\
+  (major1) <  0 || \
+  (major1) == 0 && (major2) <  4 || \
+  (major1) == 0 && (major2) == 4 && (minor) <= 9)
+#endif /* MIN_VERSION_servant_auth_server */
 /* package servant-client-0.20.2 */
 #ifndef VERSION_servant_client
 #define VERSION_servant_client "0.20.2"
@@ -261,6 +291,16 @@
   (major1) == 2 && (major2) <  30 || \
   (major1) == 2 && (major2) == 30 && (minor) <= 0)
 #endif /* MIN_TOOL_VERSION_haddock */
+/* tool happy-2.0.2 */
+#ifndef TOOL_VERSION_happy
+#define TOOL_VERSION_happy "2.0.2"
+#endif /* TOOL_VERSION_happy */
+#ifndef MIN_TOOL_VERSION_happy
+#define MIN_TOOL_VERSION_happy(major1,major2,minor) (\
+  (major1) <  2 || \
+  (major1) == 2 && (major2) <  0 || \
+  (major1) == 2 && (major2) == 0 && (minor) <= 2)
+#endif /* MIN_TOOL_VERSION_happy */
 /* tool hpc-0.69 */
 #ifndef TOOL_VERSION_hpc
 #define TOOL_VERSION_hpc "0.69"
@@ -313,7 +353,7 @@
 #endif /* MIN_TOOL_VERSION_strip */
 
 #ifndef CURRENT_COMPONENT_ID
-#define CURRENT_COMPONENT_ID "Haskell-Server-Twitter-0.1.0.0-1XdzDoW8BjB53pUl7JqLM2-Haskell-Server-Twitter-exe"
+#define CURRENT_COMPONENT_ID "Haskell-Server-Twitter-0.1.0.0-97tYlPLfXqoC6uq9irKsTp-Haskell-Server-Twitter-exe"
 #endif /* CURRENT_COMPONENT_ID */
 #ifndef CURRENT_PACKAGE_VERSION
 #define CURRENT_PACKAGE_VERSION "0.1.0.0"

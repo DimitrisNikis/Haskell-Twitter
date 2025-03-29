@@ -81,16 +81,16 @@
 ? /home/dimitriinikitin/.stack/snapshots/x86_64-linux/de49e82dafb00eebe7c08718b2b4ace09c09d86ee34e8dca9bb88ac475701b32/9.8.2/lib/x86_64-linux-ghc-9.8.2/libHSprimitive-0.9.0.0-DTIBWATWlalJUvLh9bpwSI-ghc9.8.2.so
 : hash: ac25f47b41e77e22233fc15b949db01242760c40de2de918a61360d712dc87d8
 ? /home/dimitriinikitin/Desktop/Haskell/Haskell-Server-Twitter/.stack-work/dist/x86_64-linux/ghc-9.8.2/build/Haskell-Server-Twitter-exe/autogen/Paths_Haskell_Server_Twitter.hs
-: hash: 31a6a00e3f4b03bf574dd436943ba0c74b71faa0a4e481581916df55fad660e7
+: hash: ba3f621ed21bdcc43fc575badcba2a6b81190bde060e8a88e74590dafd5e3fa1
 ? /home/dimitriinikitin/Desktop/Haskell/Haskell-Server-Twitter/.stack-work/dist/x86_64-linux/ghc-9.8.2/build/Haskell-Server-Twitter-exe/autogen/cabal_macros.h
-: hash: 7c8be7fa775899a9068f35183fe7dd6bdc87109aca5b877f0e007cd67d9e8d83
+: hash: b293d8f834c65d837a36f9ffa4f07b789e4ad21610199cc4e796b50dec2650fd
 /home/dimitriinikitin/Desktop/Haskell/Haskell-Server-Twitter/Haskell-Server-Twitter.cabal:
-  hash: 14109f3eefbf8b754f71e1e0471f4f73911417a3d176ce6e8788ce67e11221d3
+  hash: 91b084ba344d3a04b1e01147d0a35f460cf46e6982e9d1accf795c928d743e58
 /home/dimitriinikitin/Desktop/Haskell/Haskell-Server-Twitter/README.md:
   hash: 2f3c42d7cc3dd8cc747e7246efa998bcc027a01591349acd7300abd66c812512
 /home/dimitriinikitin/Desktop/Haskell/Haskell-Server-Twitter/app/Main.hs:
-  hash: 932302a0c9696bcb2e9444971f283186cf1036046610a40b6a5181de7340ab9f
+  hash: 4807746c4229a67c3d14ad2e94c85581d219836b0c58e268339b31db3559dc8e
 /home/dimitriinikitin/Desktop/Haskell/Haskell-Server-Twitter/package.yaml:
-  hash: e3c7e7741e33869acf4116190d9ffd9b7dfe90dcdacc34ca464811e896bbdc63
+  hash: e1f6d821fa00209480075b830e75b4dbf446f879847e62468e9563535115d510
 /usr/include/stdc-predef.h:
   hash: cb08cd5d4cc059a90833ac48a284d25016e8d56ded8ad4cd98d8ac59cc5053f3

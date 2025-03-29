@@ -38,6 +38,9 @@ executables:
       - bcrypt
       - random
       - string-conversions
+      - servant-auth-server
+      - base64-bytestring
+      - cryptohash-sha256
 
 default-extensions:
   - OverloadedStrings

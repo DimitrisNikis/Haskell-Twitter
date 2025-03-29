@@ -17,6 +17,7 @@ import           Data.Acid.Advanced       (query', update')
 import           Data.Aeson               (FromJSON, ToJSON)
 import           Data.ByteString          (ByteString)
 import qualified Data.ByteString.Char8    as BS
+import qualified Data.ByteString.Char8    as BSC
 import           Data.List                (find, isInfixOf)
 import           Data.Map                 (Map)
 import qualified Data.Map                 as Map
@@ -25,7 +26,7 @@ import           Data.SafeCopy            (SafeCopy, base, deriveSafeCopy)
 import           Data.Text                (Text)
 import qualified Data.Text                as T
 import qualified Data.Text.Encoding       as TE
-import           Data.Time.Clock          (UTCTime, addUTCTime, getCurrentTime)
+import           Data.Time.Clock          (UTCTime, addUTCTime, diffUTCTime, getCurrentTime)
 import           Data.Time.Format         (defaultTimeLocale, formatTime)
 import           GHC.Generics             (Generic)
 import           Network.HTTP.Types       (status400, status401, status403,
@@ -37,9 +38,11 @@ import           Servant
 import           Servant.Server           (err400, err401, err403, err404)
 import           System.Random            (randomIO)
 import           Text.Regex.TDFA          ((=~))
+import           Crypto.BCrypt            (hashPassword, validatePassword)
 
+-- Основные структуры данных (оставлены как были)
 data Tweet = Tweet
-  { tweetId   :: Int  -- Добавляем ID для идентификации твитов
+  { tweetId   :: Int
   , author    :: Text
   , content   :: Text
   , timestamp :: UTCTime
@@ -50,98 +53,230 @@ instance FromJSON Tweet
 
 data TweetsState = TweetsState
   { tweets      :: [Tweet]
-  , nextTweetId :: Int  -- Счетчик для генерации ID
+  , nextTweetId :: Int
   } deriving (Show)
 
 initialState :: TweetsState
 initialState = TweetsState [] 1
 
--- Acid-state операции
+-- Новые структуры для аутентификации
+data User = User
+  { username :: Text
+  , password :: Text
+  } deriving (Show, Eq, Generic)
 
-addTweet :: Tweet -> Update TweetsState ()
+instance ToJSON User
+instance FromJSON User
+
+data AuthToken = AuthToken
+  { tokenId      :: Text
+  , tokenUser    :: Text
+  , tokenExpires :: UTCTime
+  } deriving (Show, Eq, Generic)
+
+instance ToJSON AuthToken
+instance FromJSON AuthToken
+
+-- Объединенное состояние приложения
+data AppState = AppState
+  { appTweets    :: TweetsState
+  , appUsers     :: Map Text User
+  , appTokens    :: Map Text AuthToken
+  } deriving (Show)
+
+initialAppState :: AppState
+initialAppState = AppState initialState Map.empty Map.empty
+
+-- Acid-state операции для твитов (адаптированные для AppState)
+addTweet :: Tweet -> Update AppState ()
 addTweet tweet = do
   s <- get
-  put $ s { tweets = tweet : tweets s }
+  let ts = appTweets s
+  put $ s { appTweets = ts { tweets = tweet : tweets ts } }
 
-getTweets :: Query TweetsState [Tweet]
+getTweets :: Query AppState [Tweet]
 getTweets = do
   s <- ask
-  return $ tweets s
+  return $ tweets (appTweets s)
 
-getNextTweetId :: Query TweetsState Int
+getNextTweetId :: Query AppState Int
 getNextTweetId = do
   s <- ask
-  return $ nextTweetId s
+  return $ nextTweetId (appTweets s)
 
-incrementTweetId :: Update TweetsState ()
+incrementTweetId :: Update AppState ()
 incrementTweetId = do
   s <- get
-  put $ s { nextTweetId = nextTweetId s + 1 }
+  let ts = appTweets s
+  put $ s { appTweets = ts { nextTweetId = nextTweetId ts + 1 } }
 
-updateTweet :: Int -> Text -> Text -> Update TweetsState Bool
+updateTweet :: Int -> Text -> Text -> Update AppState Bool
 updateTweet idToUpdate newContent requestingUser = do
   s <- get
-  case find (\t -> tweetId t == idToUpdate && author t == requestingUser) (tweets s) of
+  let ts = appTweets s
+  case find (\t -> tweetId t == idToUpdate && author t == requestingUser) (tweets ts) of
     Just oldTweet -> do
       let updatedTweet = oldTweet { content = newContent }
-          newTweets = updatedTweet : filter (\t -> tweetId t /= idToUpdate) (tweets s)
-      put $ s { tweets = newTweets }
+          newTweets = updatedTweet : filter (\t -> tweetId t /= idToUpdate) (tweets ts)
+      put $ s { appTweets = ts { tweets = newTweets } }
       return True
     Nothing -> return False
 
-deleteTweet :: Int -> Text -> Update TweetsState Bool
+deleteTweet :: Int -> Text -> Update AppState Bool
 deleteTweet idToDelete requestingUser = do
   s <- get
-  case find (\t -> tweetId t == idToDelete && author t == requestingUser) (tweets s) of
+  let ts = appTweets s
+  case find (\t -> tweetId t == idToDelete && author t == requestingUser) (tweets ts) of
     Just _ -> do
-      let newTweets = filter (\t -> tweetId t /= idToDelete) (tweets s)
-      put $ s { tweets = newTweets }
+      let newTweets = filter (\t -> tweetId t /= idToDelete) (tweets ts)
+      put $ s { appTweets = ts { tweets = newTweets } }
       return True
     Nothing -> return False
 
+-- Acid-state операции для аутентификации
+addUser :: User -> Update AppState ()
+addUser user = do
+  s <- get
+  put $ s { appUsers = Map.insert (username user) user (appUsers s) }
+
+getUser :: Text -> Query AppState (Maybe User)
+getUser username = do
+  s <- ask
+  return $ Map.lookup username (appUsers s)
+
+addAuthToken :: AuthToken -> Update AppState ()
+addAuthToken token = do
+  s <- get
+  put $ s { appTokens = Map.insert (tokenId token) token (appTokens s) }
+
+getAuthToken :: Text -> Query AppState (Maybe AuthToken)
+getAuthToken tokenId = do
+  s <- ask
+  return $ Map.lookup tokenId (appTokens s)
+
+removeAuthToken :: Text -> Update AppState ()
+removeAuthToken tokenId = do
+  s <- get
+  put $ s { appTokens = Map.delete tokenId (appTokens s) }
+
+-- Генерация SafeCopy и AcidState
 $(deriveSafeCopy 0 'base ''Tweet)
 $(deriveSafeCopy 0 'base ''TweetsState)
-$(makeAcidic ''TweetsState ['addTweet, 'getTweets, 'getNextTweetId, 'incrementTweetId, 'updateTweet, 'deleteTweet])
+$(deriveSafeCopy 0 'base ''User)
+$(deriveSafeCopy 0 'base ''AuthToken)
+$(deriveSafeCopy 0 'base ''AppState)
 
--- API определение
+$(makeAcidic ''AppState [
+    'addTweet, 'getTweets, 'getNextTweetId, 'incrementTweetId, 'updateTweet, 'deleteTweet,
+    'addUser, 'getUser, 'addAuthToken, 'getAuthToken, 'removeAuthToken
+  ])
 
+-- Вспомогательные функции для аутентификации
+generateToken :: Text -> IO AuthToken
+generateToken username = do
+  token <- randomIO :: IO Int  -- Explicitly specify we want an Int
+  currentTime <- getCurrentTime
+  let expiry = addUTCTime 3600 currentTime  -- 1 hour expiry
+  return $ AuthToken (T.pack $ show token) username expiry
+
+isTokenValid :: AuthToken -> IO Bool
+isTokenValid token = do
+  currentTime <- getCurrentTime
+  return $ tokenExpires token > currentTime
+
+-- hashPassword' :: Text -> IO (Maybe Text)
+-- hashPassword' password = do
+--   let passwordBS = BSC.pack $ T.unpack password
+--   mHash <- hashPassword 12 passwordBS
+--   return $ fmap T.pack (BSC.unpack <$> mHash)
+
+validatePassword' :: Text -> Text -> Bool
+validatePassword' inputPassword storedPassword = inputPassword == storedPassword
+
+-- Обновленное API с аутентификацией
 type API =
-       "send" :> QueryParam "as" Text :> ReqBody '[PlainText] Text :> Post '[JSON] NoContent
+       "auth" :> "register" :> ReqBody '[JSON] (Text, Text) :> Post '[JSON] NoContent
+  :<|> "auth" :> "login" :> ReqBody '[JSON] (Text, Text) :> Post '[JSON] AuthToken
+  :<|> "auth" :> "logout" :> Header "Authorization" Text :> Post '[JSON] NoContent
+  :<|> "send" :> Header "Authorization" Text :> ReqBody '[PlainText] Text :> Post '[JSON] NoContent
   :<|> "search" :> QueryParams "tags" Text :> QueryParams "from" Text :> QueryParams "mentions" Text :> Get '[JSON] [Tweet]
-  :<|> "tweets" :> Capture "tweetId" Int :> ReqBody '[PlainText] Text :> QueryParam "as" Text :> Put '[JSON] NoContent
-  :<|> "tweets" :> Capture "tweetId" Int :> QueryParam "as" Text :> Delete '[JSON] NoContent
+  :<|> "tweets" :> Capture "tweetId" Int :> Header "Authorization" Text :> ReqBody '[PlainText] Text :> Put '[JSON] NoContent
+  :<|> "tweets" :> Capture "tweetId" Int :> Header "Authorization" Text :> Delete '[JSON] NoContent
 
-server :: AcidState TweetsState -> Server API
-server acid = sendTweet acid
-          :<|> searchTweets acid
-          :<|> updateTweetHandler acid
-          :<|> deleteTweetHandler acid
+server :: AcidState AppState -> Server API
+server acid = registerHandler acid
+         :<|> loginHandler acid
+         :<|> logoutHandler acid
+         :<|> sendTweetHandler acid
+         :<|> searchTweetsHandler acid
+         :<|> updateTweetHandler acid
+         :<|> deleteTweetHandler acid
 
--- Обработчики
-
--- POST /send?as=user
-sendTweet :: AcidState TweetsState -> Maybe Text -> Text -> Handler NoContent
-sendTweet acid user tweetContent = do
-  liftIO $ putStrLn $ "Received request: user=" ++ show user ++ ", content=" ++ T.unpack tweetContent
-  case user of
-    Just u | not (isValidUsername u) -> throwError err400 { errBody = "Invalid username format" }
-    Just u | T.length tweetContent > 280 -> throwError err400 { errBody = "Tweet is too long (max 280 characters)" }
-    Just u -> do
-      currentTime <- liftIO getCurrentTime
-      nextId <- liftIO $ query' acid GetNextTweetId
-      let newTweet = Tweet nextId u tweetContent currentTime
-      liftIO $ do
-        putStrLn $ "Adding tweet: " ++ show newTweet
-        update' acid (AddTweet newTweet)
-        update' acid IncrementTweetId
+-- Обработчики для аутентификации
+registerHandler :: AcidState AppState -> (Text, Text) -> Handler NoContent
+registerHandler acid (username, password) = do
+  when (not $ isValidUsername username) $ 
+    throwError err400 { errBody = "Invalid username format" }
+  
+  mExistingUser <- liftIO $ query' acid (GetUser username)
+  case mExistingUser of
+    Just _ -> throwError err400 { errBody = "Username already exists" }
+    Nothing -> do
+      let user = User username password
+      liftIO $ update' acid (AddUser user)
       return NoContent
-    Nothing -> throwError err400 { errBody = "User must be specified" }
 
--- GET /search
-searchTweets :: AcidState TweetsState -> [Text] -> [Text] -> [Text] -> Handler [Tweet]
-searchTweets acid tags fromUsers mentions = do
-  liftIO $ putStrLn $ "[INFO] Received GET /search request: tags=" ++ show tags ++ ", from=" ++ show fromUsers ++ ", mentions=" ++ show mentions
+loginHandler :: AcidState AppState -> (Text, Text) -> Handler AuthToken
+loginHandler acid (inputUsername, inputPassword) = do
+  mUser <- liftIO $ query' acid (GetUser inputUsername)
+  case mUser of
+    Nothing -> throwError err401 { errBody = "Invalid username or password" }
+    Just user -> 
+      if validatePassword' inputPassword (password user)
+      then do
+        token <- liftIO $ generateToken inputUsername
+        liftIO $ update' acid (AddAuthToken token)
+        return token
+      else throwError err401 { errBody = "Invalid username or password" }
 
+logoutHandler :: AcidState AppState -> Maybe Text -> Handler NoContent
+logoutHandler acid Nothing = throwError err401 { errBody = "Authorization token required" }
+logoutHandler acid (Just tokenId) = do
+  liftIO $ update' acid (RemoveAuthToken tokenId)
+  return NoContent
+
+-- Обновленные обработчики твитов с аутентификацией
+authenticate :: AcidState AppState -> Maybe Text -> Handler Text
+authenticate acid Nothing = throwError err401 { errBody = "Authorization token required" }
+authenticate acid (Just tokenId) = do
+  mToken <- liftIO $ query' acid (GetAuthToken tokenId)
+  case mToken of
+    Nothing -> throwError err401 { errBody = "Invalid token" }
+    Just token -> do
+      isValid <- liftIO $ isTokenValid token
+      if isValid 
+        then return $ tokenUser token
+        else do
+          liftIO $ update' acid (RemoveAuthToken tokenId)
+          throwError err401 { errBody = "Token expired" }
+
+sendTweetHandler :: AcidState AppState -> Maybe Text -> Text -> Handler NoContent
+sendTweetHandler acid mToken tweetContent = do
+  username <- authenticate acid mToken
+  
+  when (T.length tweetContent > 280) $ 
+    throwError err400 { errBody = "Tweet is too long (max 280 characters)" }
+  
+  currentTime <- liftIO getCurrentTime
+  nextId <- liftIO $ query' acid GetNextTweetId
+  let newTweet = Tweet nextId username tweetContent currentTime
+  liftIO $ do
+    update' acid (AddTweet newTweet)
+    update' acid IncrementTweetId
+  return NoContent
+
+searchTweetsHandler :: AcidState AppState -> [Text] -> [Text] -> [Text] -> Handler [Tweet]
+searchTweetsHandler acid tags fromUsers mentions = do
   let tagsList = concatMap (T.splitOn ",") tags
       fromList = concatMap (T.splitOn ",") fromUsers
       mentionsList = concatMap (T.splitOn ",") mentions
@@ -151,47 +286,36 @@ searchTweets acid tags fromUsers mentions = do
 
   case filter (not . isValidUsername) fromList of
     [] -> return ()
-    _ -> do
-      throwError err400 { errBody = "Invalid username format in 'from'" }
+    _ -> throwError err400 { errBody = "Invalid username format in 'from'" }
 
   case filter (not . isValidUsername) mentionsList of
     [] -> return ()
-    _ -> do
-      throwError err400 { errBody = "Invalid username format in 'mentions'" }
+    _ -> throwError err400 { errBody = "Invalid username format in 'mentions'" }
 
   case filter (not . isValidTag) tagsList of
     [] -> return ()
-    _ -> do
-      throwError err400 { errBody = "Invalid tag format" }
+    _ -> throwError err400 { errBody = "Invalid tag format" }
 
   allTweets <- liftIO $ query' acid GetTweets
-  liftIO $ putStrLn $ "[INFO] Found " ++ show (length allTweets) ++ " tweets"
   return $ filter (matchesCriteria tagsList fromList mentionsList) allTweets
 
--- PUT /tweets/:id?as=user
-updateTweetHandler :: AcidState TweetsState -> Int -> Text -> Maybe Text -> Handler NoContent
-updateTweetHandler acid tweetId newContent user = do
-  case user of
-    Just u -> do
-      success <- liftIO $ update' acid (UpdateTweet tweetId newContent u)
-      if success
-        then return NoContent
-        else throwError err404 { errBody = "Tweet not found or you don't have permission to edit it" }
-    Nothing -> throwError err400 { errBody = "User must be specified" }
+updateTweetHandler :: AcidState AppState -> Int -> Maybe Text -> Text -> Handler NoContent
+updateTweetHandler acid tweetId mToken newContent = do
+  username <- authenticate acid mToken
+  success <- liftIO $ update' acid (UpdateTweet tweetId newContent username)
+  if success
+    then return NoContent
+    else throwError err404 { errBody = "Tweet not found or you don't have permission to edit it" }
 
--- DELETE /tweets/:id?as=user
-deleteTweetHandler :: AcidState TweetsState -> Int -> Maybe Text -> Handler NoContent
-deleteTweetHandler acid tweetId user = do
-  case user of
-    Just u -> do
-      success <- liftIO $ update' acid (DeleteTweet tweetId u)
-      if success
-        then return NoContent
-        else throwError err404 { errBody = "Tweet not found or you don't have permission to delete it" }
-    Nothing -> throwError err400 { errBody = "User must be specified" }
+deleteTweetHandler :: AcidState AppState -> Int -> Maybe Text -> Handler NoContent
+deleteTweetHandler acid tweetId mToken = do
+  username <- authenticate acid mToken
+  success <- liftIO $ update' acid (DeleteTweet tweetId username)
+  if success
+    then return NoContent
+    else throwError err404 { errBody = "Tweet not found or you don't have permission to delete it" }
 
--- Вспомогательные функции
-
+-- Оригинальные вспомогательные функции (оставлены без изменений)
 isValidUsername :: T.Text -> Bool
 isValidUsername name = (T.unpack name :: String) =~ ("^[a-zA-Z][a-zA-Z0-9]*$" :: String)
 
@@ -224,6 +348,6 @@ rejectUnknownParams allowedParams app req sendResponse =
 
 main :: IO ()
 main = do
-  acid <- openLocalState initialState
+  acid <- openLocalState initialAppState
   putStrLn "Server running at http://localhost:8080"
-  run 8080 $ rejectUnknownParams ["from", "mentions", "as", "tags"] (serve (Proxy :: Proxy API) (server acid))
+  run 8080 $ rejectUnknownParams ["from", "mentions", "tags"] (serve (Proxy :: Proxy API) (server acid))
