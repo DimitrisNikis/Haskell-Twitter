@@ -40,7 +40,7 @@ main = withSocketsDo $ do
   acidState <- openLocalState L.initialAppState
   let app = serve (Proxy :: Proxy L.API) (L.server acidState)
 
-  serverThread <- Concurrent.forkIO $ Warp.run port app
+  serverThread <- Concurrent.forkIO $ Warp.run port $ L.rejectUnknownParams ["from", "mentions", "tags"] app
 
   Concurrent.threadDelay 100000
 
@@ -211,7 +211,7 @@ tweetSpec port = do
       let mTweets = Aeson.decode (HTTP.responseBody response) :: Maybe [Aeson.Value]
       case mTweets of
         Nothing     -> Hspec.expectationFailure "Failed to decode tweets"
-        Just tweets -> length tweets `Hspec.shouldSatisfy` (>= 1)
+        Just tweets -> length tweets `Hspec.shouldSatisfy` (== 1)
 
     Hspec.it "should delete a tweet" $ do
       mToken <- readIORef tokenRef

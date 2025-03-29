@@ -10,9 +10,9 @@
 
 module Lib where
 
-import           Control.Monad            (when)
+import           Control.Monad            (when, unless)
 import           Control.Monad.IO.Class   (liftIO)
-import           Control.Monad.Reader     (ask)
+import           Control.Monad.Reader     (ask, asks)
 import           Control.Monad.State      (get, put)
 import           Crypto.BCrypt            (hashPassword, validatePassword)
 import           Data.Acid
@@ -36,7 +36,6 @@ import           GHC.Generics             (Generic)
 import           Network.HTTP.Types       (status400, status401, status403,
                                            status404)
 import           Network.Wai
-import           Network.Wai              (queryString, responseLBS)
 import           Network.Wai.Handler.Warp (run)
 import           Servant
 import           Servant.Server           (err400, err401, err403, err404)
@@ -98,13 +97,11 @@ addTweet tweet = do
 
 getTweets :: Query AppState [Tweet]
 getTweets = do
-  s <- ask
-  return $ tweets (appTweets s)
+  asks (tweets . appTweets)
 
 getNextTweetId :: Query AppState Int
 getNextTweetId = do
-  s <- ask
-  return $ nextTweetId (appTweets s)
+  asks (nextTweetId . appTweets)
 
 incrementTweetId :: Update AppState ()
 incrementTweetId = do
@@ -143,8 +140,7 @@ addUser user = do
 
 getUser :: Text -> Query AppState (Maybe User)
 getUser username = do
-  s <- ask
-  return $ Map.lookup username (appUsers s)
+  asks (Map.lookup username . appUsers)
 
 addAuthToken :: AuthToken -> Update AppState ()
 addAuthToken token = do
@@ -153,8 +149,7 @@ addAuthToken token = do
 
 getAuthToken :: Text -> Query AppState (Maybe AuthToken)
 getAuthToken tokenId = do
-  s <- ask
-  return $ Map.lookup tokenId (appTokens s)
+  asks (Map.lookup tokenId . appTokens)
 
 removeAuthToken :: Text -> Update AppState ()
 removeAuthToken tokenId = do
@@ -215,7 +210,7 @@ server acid = registerHandler acid
 -- Обработчики для аутентификации
 registerHandler :: AcidState AppState -> (Text, Text) -> Handler NoContent
 registerHandler acid (username, password) = do
-  when (not $ isValidUsername username) $
+  unless (isValidUsername username) $
     throwError err400 { errBody = "Invalid username format" }
 
   mExistingUser <- liftIO $ query' acid (GetUser username)
@@ -320,7 +315,7 @@ isValidUsername :: T.Text -> Bool
 isValidUsername name = (T.unpack name :: String) =~ ("^[a-zA-Z][a-zA-Z0-9]*$" :: String)
 
 isValidTag :: Text -> Bool
-isValidTag tag = isValidUsername tag
+isValidTag = isValidUsername
 
 matchesCriteria :: [Text] -> [Text] -> [Text] -> Tweet -> Bool
 matchesCriteria tags fromUsers mentions tweet =

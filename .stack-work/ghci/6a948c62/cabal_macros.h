@@ -50,16 +50,6 @@
   (major1) == 4 && (major2) <  19 || \
   (major1) == 4 && (major2) == 19 && (minor) <= 1)
 #endif /* MIN_VERSION_base */
-/* package base64-bytestring-1.2.1.0 */
-#ifndef VERSION_base64_bytestring
-#define VERSION_base64_bytestring "1.2.1.0"
-#endif /* VERSION_base64_bytestring */
-#ifndef MIN_VERSION_base64_bytestring
-#define MIN_VERSION_base64_bytestring(major1,major2,minor) (\
-  (major1) <  1 || \
-  (major1) == 1 && (major2) <  2 || \
-  (major1) == 1 && (major2) == 2 && (minor) <= 1)
-#endif /* MIN_VERSION_base64_bytestring */
 /* package bcrypt-0.0.11 */
 #ifndef VERSION_bcrypt
 #define VERSION_bcrypt "0.0.11"
@@ -90,16 +80,6 @@
   (major1) == 0 && (major2) <  6 || \
   (major1) == 0 && (major2) == 6 && (minor) <= 8)
 #endif /* MIN_VERSION_containers */
-/* package cryptohash-sha256-0.11.102.1 */
-#ifndef VERSION_cryptohash_sha256
-#define VERSION_cryptohash_sha256 "0.11.102.1"
-#endif /* VERSION_cryptohash_sha256 */
-#ifndef MIN_VERSION_cryptohash_sha256
-#define MIN_VERSION_cryptohash_sha256(major1,major2,minor) (\
-  (major1) <  0 || \
-  (major1) == 0 && (major2) <  11 || \
-  (major1) == 0 && (major2) == 11 && (minor) <= 102)
-#endif /* MIN_VERSION_cryptohash_sha256 */
 /* package http-types-0.12.4 */
 #ifndef VERSION_http_types
 #define VERSION_http_types "0.12.4"
@@ -130,16 +110,6 @@
   (major1) == 2 && (major2) <  3 || \
   (major1) == 2 && (major2) == 3 && (minor) <= 1)
 #endif /* MIN_VERSION_mtl */
-/* package random-1.2.1.2 */
-#ifndef VERSION_random
-#define VERSION_random "1.2.1.2"
-#endif /* VERSION_random */
-#ifndef MIN_VERSION_random
-#define MIN_VERSION_random(major1,major2,minor) (\
-  (major1) <  1 || \
-  (major1) == 1 && (major2) <  2 || \
-  (major1) == 1 && (major2) == 2 && (minor) <= 1)
-#endif /* MIN_VERSION_random */
 /* package regex-tdfa-1.3.2.2 */
 #ifndef VERSION_regex_tdfa
 #define VERSION_regex_tdfa "1.3.2.2"
@@ -170,16 +140,6 @@
   (major1) == 0 && (major2) <  20 || \
   (major1) == 0 && (major2) == 20 && (minor) <= 2)
 #endif /* MIN_VERSION_servant */
-/* package servant-auth-server-0.4.9.0 */
-#ifndef VERSION_servant_auth_server
-#define VERSION_servant_auth_server "0.4.9.0"
-#endif /* VERSION_servant_auth_server */
-#ifndef MIN_VERSION_servant_auth_server
-#define MIN_VERSION_servant_auth_server(major1,major2,minor) (\
-  (major1) <  0 || \
-  (major1) == 0 && (major2) <  4 || \
-  (major1) == 0 && (major2) == 4 && (minor) <= 9)
-#endif /* MIN_VERSION_servant_auth_server */
 /* package servant-client-0.20.2 */
 #ifndef VERSION_servant_client
 #define VERSION_servant_client "0.20.2"
@@ -261,26 +221,6 @@
   (major1) == 3 && (major2) == 4 && (minor) <= 2)
 #endif /* MIN_VERSION_warp */
 
-/* tool alex-3.5.1.0 */
-#ifndef TOOL_VERSION_alex
-#define TOOL_VERSION_alex "3.5.1.0"
-#endif /* TOOL_VERSION_alex */
-#ifndef MIN_TOOL_VERSION_alex
-#define MIN_TOOL_VERSION_alex(major1,major2,minor) (\
-  (major1) <  3 || \
-  (major1) == 3 && (major2) <  5 || \
-  (major1) == 3 && (major2) == 5 && (minor) <= 1)
-#endif /* MIN_TOOL_VERSION_alex */
-/* tool cpphs-1.20.9 */
-#ifndef TOOL_VERSION_cpphs
-#define TOOL_VERSION_cpphs "1.20.9"
-#endif /* TOOL_VERSION_cpphs */
-#ifndef MIN_TOOL_VERSION_cpphs
-#define MIN_TOOL_VERSION_cpphs(major1,major2,minor) (\
-  (major1) <  1 || \
-  (major1) == 1 && (major2) <  20 || \
-  (major1) == 1 && (major2) == 20 && (minor) <= 9)
-#endif /* MIN_TOOL_VERSION_cpphs */
 /* tool gcc-11 */
 #ifndef TOOL_VERSION_gcc
 #define TOOL_VERSION_gcc "11"
@@ -351,16 +291,6 @@
   (major1) == 0 && (major2) <  68 || \
   (major1) == 0 && (major2) == 68 && (minor) <= 10)
 #endif /* MIN_TOOL_VERSION_hsc2hs */
-/* tool hscolour-1.25 */
-#ifndef TOOL_VERSION_hscolour
-#define TOOL_VERSION_hscolour "1.25"
-#endif /* TOOL_VERSION_hscolour */
-#ifndef MIN_TOOL_VERSION_hscolour
-#define MIN_TOOL_VERSION_hscolour(major1,major2,minor) (\
-  (major1) <  1 || \
-  (major1) == 1 && (major2) <  25 || \
-  (major1) == 1 && (major2) == 25 && (minor) <= 0)
-#endif /* MIN_TOOL_VERSION_hscolour */
 /* tool pkg-config-0.29.2 */
 #ifndef TOOL_VERSION_pkg_config
 #define TOOL_VERSION_pkg_config "0.29.2"
@@ -393,8 +323,11 @@
 #endif /* MIN_TOOL_VERSION_strip */
 
 #ifndef CURRENT_COMPONENT_ID
-#define CURRENT_COMPONENT_ID "Haskell-Server-Twitter-0.1.0.0-9eRDus840Pk7WzvbhhtudD-Haskell-Server-Twitter-exe"
+#define CURRENT_COMPONENT_ID "Haskell-Server-Twitter-0.1.0.0-LKDcVkLllJRIAfNXQ41nRo-Haskell-Server-Twitter-exe"
 #endif /* CURRENT_COMPONENT_ID */
 #ifndef CURRENT_PACKAGE_VERSION
 #define CURRENT_PACKAGE_VERSION "0.1.0.0"
 #endif /* CURRENT_PACKAGE_VERSION */
+
+#undef CURRENT_PACKAGE_KEY
+#undef CURRENT_COMPONENT_ID
