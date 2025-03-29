@@ -34,6 +34,11 @@ curl -v -X POST http://localhost:8080/send \
   -d "Катю поймали! #Isaev"
 ```
 
+Поиск твита:
+```
+http://localhost:8080/search?from=Stierlitz&tags=Isaev
+```
+
 Изменение твита:
 ```
 curl -v -X PUT http://localhost:8080/tweets/1 \
