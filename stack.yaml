@@ -9,3 +9,6 @@ extra-deps:
   - x509-store-1.6.9
   - cryptostore-0.3.1.0
   - x509-validation-1.6.12
+
+ghc-options:
+  "Haskell-Server-Twitter": -Wunused-imports

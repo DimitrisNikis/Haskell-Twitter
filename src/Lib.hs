@@ -12,33 +12,24 @@ module Lib where
 
 import           Control.Monad            (when, unless)
 import           Control.Monad.IO.Class   (liftIO)
-import           Control.Monad.Reader     (ask, asks)
+import           Control.Monad.Reader     (asks)
 import           Control.Monad.State      (get, put)
-import           Crypto.BCrypt            (hashPassword, validatePassword)
 import           Data.Acid
 import           Data.Acid.Advanced       (query', update')
 import           Data.Aeson               (FromJSON, ToJSON)
 import           Data.ByteString          (ByteString)
-import qualified Data.ByteString.Char8    as BS
-import qualified Data.ByteString.Char8    as BSC
-import           Data.List                (find, isInfixOf)
+import           Data.List                (find)
 import           Data.Map                 (Map)
 import qualified Data.Map                 as Map
-import           Data.Maybe               (fromMaybe, isNothing)
-import           Data.SafeCopy            (SafeCopy, base, deriveSafeCopy)
+import           Data.SafeCopy            (base, deriveSafeCopy)
 import           Data.Text                (Text)
 import qualified Data.Text                as T
-import qualified Data.Text.Encoding       as TE
-import           Data.Time.Clock          (UTCTime, addUTCTime, diffUTCTime,
+import           Data.Time.Clock          (UTCTime, addUTCTime,
                                            getCurrentTime)
-import           Data.Time.Format         (defaultTimeLocale, formatTime)
 import           GHC.Generics             (Generic)
-import           Network.HTTP.Types       (status400, status401, status403,
-                                           status404)
+import           Network.HTTP.Types       (status400)
 import           Network.Wai
-import           Network.Wai.Handler.Warp (run)
 import           Servant
-import           Servant.Server           (err400, err401, err403, err404)
 import           System.Random            (randomIO)
 import           Text.Regex.TDFA          ((=~))
 
@@ -182,12 +173,6 @@ isTokenValid :: AuthToken -> IO Bool
 isTokenValid token = do
   currentTime <- getCurrentTime
   return $ tokenExpires token > currentTime
-
--- hashPassword' :: Text -> IO (Maybe Text)
--- hashPassword' password = do
---   let passwordBS = BSC.pack $ T.unpack password
---   mHash <- hashPassword 12 passwordBS
---   return $ fmap T.pack (BSC.unpack <$> mHash)
 
 validatePassword' :: Text -> Text -> Bool
 validatePassword' inputPassword storedPassword = inputPassword == storedPassword

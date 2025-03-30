@@ -14,16 +14,12 @@ import qualified Network.HTTP.Types       as HTTP
 import qualified Network.Wai.Handler.Warp as Warp
 import qualified Test.Hspec               as Hspec
 
-import           Data.Acid                (AcidState, openLocalState)
+import           Data.Acid                (openLocalState)
 import           Data.IORef               (newIORef, readIORef, writeIORef)
 import           GHC.Generics             (Generic)
 import qualified Lib                      as L
-import           Network.Socket           (SockAddr (SockAddrInet), addrAddress,
-                                           close, defaultHints, getAddrInfo,
-                                           openSocket, withSocketsDo)
-import           Network.Wai              (Application)
+import           Network.Socket           (withSocketsDo)
 import           Servant
-import           Servant.Client
 
 data LoginResponse = LoginResponse
   { tokenId      :: T.Text
