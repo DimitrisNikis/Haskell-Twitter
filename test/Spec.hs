@@ -209,20 +209,84 @@ tweetSpec port = do
         Nothing     -> Hspec.expectationFailure "Failed to decode tweets"
         Just tweets -> length tweets `Hspec.shouldSatisfy` (== 1)
 
-    Hspec.it "should delete a tweet" $ do
+    Hspec.it "should delete a tweet and result in 0 tweets" $ do
       mToken <- readIORef tokenRef
       case mToken of
         Nothing -> Hspec.expectationFailure "No auth token available"
         Just token -> do
           manager <- createClient port
+          
           let deleteUrl = localBaseUrl port ++ "/tweets/1"
-          request <- HTTP.parseRequest deleteUrl
-          let req = request {
+          deleteRequest <- HTTP.parseRequest deleteUrl
+          let deleteReq = deleteRequest {
                 HTTP.method = "DELETE",
                 HTTP.requestHeaders = [
                   ("Authorization", BS.pack $ T.unpack token)
                 ]
               }
+          deleteResponse <- HTTP.httpLbs deleteReq manager
+          HTTP.responseStatus deleteResponse `Hspec.shouldBe` HTTP.status200
+          
+          let searchUrl = localBaseUrl port ++ "/search?from=testuser"
+          searchRequest <- HTTP.parseRequest searchUrl
+          let searchReq = searchRequest { HTTP.method = "GET" }
+
+          searchResponse <- HTTP.httpLbs searchReq manager
+          HTTP.responseStatus searchResponse `Hspec.shouldBe` HTTP.status200
+          let mTweets = Aeson.decode (HTTP.responseBody searchResponse) :: Maybe [Aeson.Value]
+          case mTweets of
+            Nothing     -> Hspec.expectationFailure "Failed to decode tweets"
+            Just tweets -> length tweets `Hspec.shouldSatisfy` (== 0)
+
+    Hspec.it "should reject tweet that's too long (281 chars)" $ do
+      mToken <- readIORef tokenRef
+      case mToken of
+        Nothing -> Hspec.expectationFailure "No auth token available"
+        Just token -> do
+          manager <- createClient port
+          let longTweet = T.replicate 281 "a"
+          let tweetUrl = localBaseUrl port ++ "/send"
+          request <- HTTP.parseRequest tweetUrl
+          let req = request {
+                HTTP.method = "POST",
+                HTTP.requestHeaders = [
+                  ("Content-Type", "text/plain; charset=utf-8"),
+                  ("Authorization", BS.pack $ T.unpack token)
+                ],
+                HTTP.requestBody = HTTP.RequestBodyLBS (BSL.fromStrict $ TE.encodeUtf8 longTweet)
+              }
 
           response <- HTTP.httpLbs req manager
-          HTTP.responseStatus response `Hspec.shouldBe` HTTP.status200
+          HTTP.responseStatus response `Hspec.shouldBe` HTTP.status400
+    
+    Hspec.it "should logout and then reject tweet sending" $ do
+      mToken <- readIORef tokenRef
+      case mToken of
+        Nothing -> Hspec.expectationFailure "No auth token available"
+        Just token -> do
+          manager <- createClient port
+          
+          let logoutUrl = localBaseUrl port ++ "/auth/logout"
+          logoutRequest <- HTTP.parseRequest logoutUrl
+          let logoutReq = logoutRequest {
+                HTTP.method = "POST",
+                HTTP.requestHeaders = [
+                  ("Authorization", BS.pack $ T.unpack token)
+                ]
+              }
+          logoutResponse <- HTTP.httpLbs logoutReq manager
+          HTTP.responseStatus logoutResponse `Hspec.shouldBe` HTTP.status200
+          
+          let tweetUrl = localBaseUrl port ++ "/send"
+          request <- HTTP.parseRequest tweetUrl
+          let req = request {
+                HTTP.method = "POST",
+                HTTP.requestHeaders = [
+                  ("Content-Type", "text/plain; charset=utf-8"),
+                  ("Authorization", BS.pack $ T.unpack token)
+                ],
+                HTTP.requestBody = HTTP.RequestBodyLBS (BSL.fromStrict $ TE.encodeUtf8 testTweetContent)
+              }
+
+          response <- HTTP.httpLbs req manager
+          HTTP.responseStatus response `Hspec.shouldBe` HTTP.status401
