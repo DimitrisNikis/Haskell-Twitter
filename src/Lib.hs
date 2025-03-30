@@ -26,11 +26,12 @@ import           Data.Text                (Text)
 import qualified Data.Text                as T
 import           Data.Time.Clock          (UTCTime, addUTCTime,
                                            getCurrentTime)
+import qualified Data.UUID                as UUID
+import qualified Data.UUID.V4             as UUID
 import           GHC.Generics             (Generic)
 import           Network.HTTP.Types       (status400)
 import           Network.Wai
 import           Servant
-import           System.Random            (randomIO)
 import           Text.Regex.TDFA          ((=~))
 
 data Tweet = Tweet
@@ -162,12 +163,19 @@ $(makeAcidic ''AppState [
   ])
 
 -- Вспомогательные функции для аутентификации
-generateToken :: Text -> IO AuthToken
-generateToken username = do
-  token <- randomIO :: IO Int
+generateToken :: AcidState AppState -> Text -> IO AuthToken
+generateToken acid username = do
+  uuid <- UUID.nextRandom
   currentTime <- getCurrentTime
-  let expiry = addUTCTime 3600 currentTime  -- 1 hour
-  return $ AuthToken (T.pack $ show token) username expiry
+  let tokenId = T.pack (UUID.toString uuid)
+      expiry = addUTCTime 3600 currentTime  -- 1 час
+      newToken = AuthToken tokenId username expiry
+  
+  mExistingToken <- query' acid (GetAuthToken tokenId)
+  case mExistingToken of
+    Nothing -> return newToken
+    Just _  -> do
+      generateToken acid username
 
 isTokenValid :: AuthToken -> IO Bool
 isTokenValid token = do
@@ -224,7 +232,7 @@ loginHandler acid (inputUsername, inputPassword) = do
         let userTokens = Map.filter (\t -> tokenUser t == inputUsername) allTokens
         liftIO $ mapM_ (update' acid . RemoveAuthToken . tokenId) (Map.elems userTokens)
 
-        token <- liftIO $ generateToken inputUsername
+        token <- liftIO $ generateToken acid inputUsername
         liftIO $ update' acid (AddAuthToken token)
         return token
       else throwError err401 { errBody = "Invalid username or password" }
