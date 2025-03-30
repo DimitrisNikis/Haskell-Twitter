@@ -66,7 +66,7 @@ testTweetContent :: T.Text
 testTweetContent = "My first tweet! #Haskell"
 
 updatedTweetContent :: T.Text
-updatedTweetContent = "Updated tweet content #Programming"
+updatedTweetContent = "Updated tweet content #Programming #Code @user1"
 
 authSpec :: Int -> Hspec.Spec
 authSpec port = Hspec.describe "Authentication" $ do
@@ -196,9 +196,9 @@ tweetSpec port = do
           response <- HTTP.httpLbs req manager
           HTTP.responseStatus response `Hspec.shouldBe` HTTP.status200
 
-    Hspec.it "should search for tweets" $ do
+    Hspec.it "should search for tweets with combinations" $ do
       manager <- createClient port
-      let searchUrl = localBaseUrl port ++ "/search?tags=Programming"
+      let searchUrl = localBaseUrl port ++ "/search?tags=Programming,Code&from=testuser&mentions=user1"
       request <- HTTP.parseRequest searchUrl
       let req = request { HTTP.method = "GET" }
 

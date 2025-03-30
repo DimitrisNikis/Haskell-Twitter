@@ -393,7 +393,7 @@
 #endif /* MIN_TOOL_VERSION_strip */
 
 #ifndef CURRENT_COMPONENT_ID
-#define CURRENT_COMPONENT_ID "Haskell-Server-Twitter-0.1.0.0-B01ww6YOvIWDLeLkRA3s1v-Haskell-Server-Twitter-exe"
+#define CURRENT_COMPONENT_ID "Haskell-Server-Twitter-0.1.0.0-J9g9t1GCfPo7j4aWbAp4qf-Haskell-Server-Twitter-exe"
 #endif /* CURRENT_COMPONENT_ID */
 #ifndef CURRENT_PACKAGE_VERSION
 #define CURRENT_PACKAGE_VERSION "0.1.0.0"
