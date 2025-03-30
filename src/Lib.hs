@@ -151,6 +151,9 @@ getAuthToken :: Text -> Query AppState (Maybe AuthToken)
 getAuthToken tokenId = do
   asks (Map.lookup tokenId . appTokens)
 
+getAllTokens :: Query AppState (Map Text AuthToken)
+getAllTokens = asks appTokens
+
 removeAuthToken :: Text -> Update AppState ()
 removeAuthToken tokenId = do
   s <- get
@@ -164,7 +167,7 @@ $(deriveSafeCopy 0 'base ''AppState)
 
 $(makeAcidic ''AppState [
     'addTweet, 'getTweets, 'getNextTweetId, 'incrementTweetId, 'updateTweet, 'deleteTweet,
-    'addUser, 'getUser, 'addAuthToken, 'getAuthToken, 'removeAuthToken
+    'addUser, 'getUser, 'addAuthToken, 'getAuthToken, 'getAllTokens, 'removeAuthToken
   ])
 
 -- Вспомогательные функции для аутентификации
@@ -213,6 +216,10 @@ registerHandler acid (username, password) = do
   unless (isValidUsername username) $
     throwError err400 { errBody = "Invalid username format" }
 
+  let passLength = T.length password
+  unless (passLength > 3 && passLength < 18) $
+    throwError err400 { errBody = "Password must be between 4 and 17 characters" }
+
   mExistingUser <- liftIO $ query' acid (GetUser username)
   case mExistingUser of
     Just _ -> throwError err400 { errBody = "Username already exists" }
@@ -229,6 +236,10 @@ loginHandler acid (inputUsername, inputPassword) = do
     Just user ->
       if validatePassword' inputPassword (password user)
       then do
+        allTokens <- liftIO $ query' acid GetAllTokens
+        let userTokens = Map.filter (\t -> tokenUser t == inputUsername) allTokens
+        liftIO $ mapM_ (update' acid . RemoveAuthToken . tokenId) (Map.elems userTokens)
+
         token <- liftIO $ generateToken inputUsername
         liftIO $ update' acid (AddAuthToken token)
         return token

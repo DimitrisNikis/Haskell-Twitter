@@ -47,7 +47,7 @@ getBinDir, getLibDir, getDynLibDir, getDataDir, getLibexecDir, getSysconfDir :: 
 
 bindir, libdir, dynlibdir, datadir, libexecdir, sysconfdir :: FilePath
 bindir     = "/home/dimitriinikitin/Desktop/Haskell/Haskell-Server-Twitter/.stack-work/install/x86_64-linux/2615efb76b8b1808fa0858b97e4e1e0dd0f0be4b9856eb1b00f17e5a973380ce/9.8.2/bin"
-libdir     = "/home/dimitriinikitin/Desktop/Haskell/Haskell-Server-Twitter/.stack-work/install/x86_64-linux/2615efb76b8b1808fa0858b97e4e1e0dd0f0be4b9856eb1b00f17e5a973380ce/9.8.2/lib/x86_64-linux-ghc-9.8.2/Haskell-Server-Twitter-0.1.0.0-9eRDus840Pk7WzvbhhtudD-Haskell-Server-Twitter-exe"
+libdir     = "/home/dimitriinikitin/Desktop/Haskell/Haskell-Server-Twitter/.stack-work/install/x86_64-linux/2615efb76b8b1808fa0858b97e4e1e0dd0f0be4b9856eb1b00f17e5a973380ce/9.8.2/lib/x86_64-linux-ghc-9.8.2/Haskell-Server-Twitter-0.1.0.0-Lg7D2mOdhlY1WblFyEnett-Haskell-Server-Twitter-exe"
 dynlibdir  = "/home/dimitriinikitin/Desktop/Haskell/Haskell-Server-Twitter/.stack-work/install/x86_64-linux/2615efb76b8b1808fa0858b97e4e1e0dd0f0be4b9856eb1b00f17e5a973380ce/9.8.2/lib/x86_64-linux-ghc-9.8.2"
 datadir    = "/home/dimitriinikitin/Desktop/Haskell/Haskell-Server-Twitter/.stack-work/install/x86_64-linux/2615efb76b8b1808fa0858b97e4e1e0dd0f0be4b9856eb1b00f17e5a973380ce/9.8.2/share/x86_64-linux-ghc-9.8.2/Haskell-Server-Twitter-0.1.0.0"
 libexecdir = "/home/dimitriinikitin/Desktop/Haskell/Haskell-Server-Twitter/.stack-work/install/x86_64-linux/2615efb76b8b1808fa0858b97e4e1e0dd0f0be4b9856eb1b00f17e5a973380ce/9.8.2/libexec/x86_64-linux-ghc-9.8.2/Haskell-Server-Twitter-0.1.0.0"
