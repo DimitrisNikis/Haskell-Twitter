@@ -216,8 +216,7 @@ registerHandler acid (username, password) = do
   unless (isValidUsername username) $
     throwError err400 { errBody = "Invalid username format" }
 
-  let passLength = T.length password
-  unless (passLength > 3 && passLength < 18) $
+  unless (isValidPasswordLength password) $
     throwError err400 { errBody = "Password must be between 4 and 17 characters" }
 
   mExistingUser <- liftIO $ query' acid (GetUser username)
@@ -327,6 +326,11 @@ isValidUsername name = (T.unpack name :: String) =~ ("^[a-zA-Z][a-zA-Z0-9]*$" ::
 
 isValidTag :: Text -> Bool
 isValidTag = isValidUsername
+
+isValidPasswordLength :: Text -> Bool
+isValidPasswordLength password = 
+  let passLength = T.length password
+  in passLength > 3 && passLength < 18
 
 matchesCriteria :: [Text] -> [Text] -> [Text] -> Tweet -> Bool
 matchesCriteria tags fromUsers mentions tweet =

@@ -383,10 +383,10 @@
 #endif /* MIN_TOOL_VERSION_strip */
 
 #ifndef CURRENT_PACKAGE_KEY
-#define CURRENT_PACKAGE_KEY "Haskell-Server-Twitter-0.1.0.0-97tYlPLfXqoC6uq9irKsTp"
+#define CURRENT_PACKAGE_KEY "Haskell-Server-Twitter-0.1.0.0-HeatCsNecV82CHSJetVdWx"
 #endif /* CURRENT_packageKey */
 #ifndef CURRENT_COMPONENT_ID
-#define CURRENT_COMPONENT_ID "Haskell-Server-Twitter-0.1.0.0-97tYlPLfXqoC6uq9irKsTp"
+#define CURRENT_COMPONENT_ID "Haskell-Server-Twitter-0.1.0.0-HeatCsNecV82CHSJetVdWx"
 #endif /* CURRENT_COMPONENT_ID */
 #ifndef CURRENT_PACKAGE_VERSION
 #define CURRENT_PACKAGE_VERSION "0.1.0.0"
