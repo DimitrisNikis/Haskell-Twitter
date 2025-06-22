@@ -1,4 +1,4 @@
-# Haskell-Server-Twitter
+# Haskell-Twitter
 Проект по курсу "Промышленное программирование на Haskell", представляющий собой сервер а-ля Twitter на Haskell.
 
 ## Запуск
